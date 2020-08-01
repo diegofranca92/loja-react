@@ -4,7 +4,10 @@ import {Title} from './styles'
 function App() {
   return (
     <div>
-        <Title>Loja Virtual</Title>
+        <Title fontSize={50}>Loja Virtual
+        <p>Compre os melhores itens</p>
+        </Title>
+        
     </div>
   );
 }
