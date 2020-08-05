@@ -1,20 +1,19 @@
 import React, { createContext, useReducer } from "react";
-import AppReducer from "./AppReducer";
+import ItemReducer from "./ItemReducer";
 
 const initialState = {
-  employees: [
+  items: [
     {
       id: 1,
-      name: "Ishan Manandhar",
-      location: "Kathmandu",
-      designation: "Frontend Developer"
+      name: "Item Padrão",
+      price: 4.00
     }
   ]
 };
 
-export const GlobalContext = createContext(initialState);
-export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
+export const ItemContext = createContext(initialState);
+export const ItemProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(ItemReducer, initialState);
 
   function removeItem(id) {
     dispatch({
@@ -38,7 +37,7 @@ export const GlobalProvider = ({ children }) => {
   }
 
   return (
-    <GlobalContext.Provider
+    <ItemContext.Provider
       value={{
         items: state.items,
         removeItem,
@@ -47,6 +46,6 @@ export const GlobalProvider = ({ children }) => {
       }}
     >
       {children}
-    </GlobalContext.Provider>
+    </ItemContext.Provider>
   );
 };

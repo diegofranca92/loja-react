@@ -12,8 +12,10 @@
     "react-redux": "^7.1.0-rc.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-validation": "^3.0.7",
     "redux": "^4.0.5",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "validator": "^13.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
