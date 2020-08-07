@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Title = styled.h1`
-    color: #f00;
+    color: #5371f9;
     font-size: ${props => `${props.fontSize}px`};
 
     p {

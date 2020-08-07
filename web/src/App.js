@@ -1,16 +1,20 @@
 import React from 'react';
-import Routes from './routes'
-import {Title} from './styles'
+import {Route, Switch } from 'react-router-dom';
+import {AddItem} from './components/AddItem'
+import {EditItem} from './components/EditItem'
+import {ListItem} from './components/ListItem'
+import { ItemProvider } from './context/ItemState';
 
 
 function App() {
   return (
-    <div>
-      <Routes />
-      <Title fontSize={50}>Loja Virtual
-      <p>Compre os melhores itens</p>
-      </Title>
-    </div>
+    <ItemProvider>
+            <Switch>
+                <Route path="/" component={ListItem} exact />
+                <Route path="/add" component={AddItem} exact />
+                <Route path="/edit/:id" component={EditItem} exact />
+            </Switch>
+    </ItemProvider>
   );
 }
 
