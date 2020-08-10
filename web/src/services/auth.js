@@ -2,9 +2,12 @@ import axios from "axios";
 
 const API_URL = "https://reqres.in/api/";
 
+export const TOKEN_KEY = "ok";
+export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
+
 class AuthService {
-  login(username, password) {
-    return axios
+  async login(username, password) {
+    return await axios
       .post(API_URL + "login", {
         username,
         password
@@ -22,8 +25,8 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(username, email, password) {
-    return axios.post(API_URL + "register", {
+  async register(username, email, password) {
+    return await axios.post(API_URL + "register", {
       username,
       email,
       password

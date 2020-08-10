@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { ItemContext } from '../context/ItemState';
+import { ItemContext } from '../../context/ItemState';
 import { useHistory, Link } from "react-router-dom";
 
 export const EditItem = (route) => {
@@ -24,7 +24,7 @@ export const EditItem = (route) => {
     const handleOnChange = (itemKey, value) => setSeletedItem({ ...selectedItem, [itemKey]: value })
 
     if (!selectedItem || !selectedItem.id) {
-        return <div>sdf</div>
+        return <div>Carregando...</div>
     }
 
     return (

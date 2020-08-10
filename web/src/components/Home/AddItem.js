@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useContext } from 'react';
-import { ItemContext } from '../context/ItemState';
-import { useHistory } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { ItemContext } from '../../context/ItemState';
+import { useHistory,  Link  } from "react-router-dom";
 
 export const AddItem = () => {
     const [name, setName] = useState('');
