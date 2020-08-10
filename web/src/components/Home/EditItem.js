@@ -2,6 +2,8 @@ import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { ItemContext } from '../../context/ItemState';
 import { useHistory, Link } from "react-router-dom";
 
+import { Form, Container } from "./styles";
+
 export const EditItem = (route) => {
     let history = useHistory();
     const { items, editItem } = useContext(ItemContext);
@@ -29,22 +31,25 @@ export const EditItem = (route) => {
 
     return (
         <Fragment>
-            <div>
-                <form onSubmit={onSubmit}>
-                    <div>
-                        <label htmlFor="name">Nome do item</label>
-                        <input value={selectedItem.name} onChange={(e) => handleOnChange('name', e.target.value)} type="text"/>
-                    </div>
-                    <div>
-                        <label htmlFor="price">Preço</label>
-                        <input value={selectedItem.price} onChange={(e) => handleOnChange('price', e.target.value)} type="text"/>
-                    </div>
-                    <div>
-                        <button>Editar</button>
-                    </div>
-                    <div><Link to='/'>Cancelar</Link></div>
-                </form>
-            </div>
+            <Container>
+                <Form onSubmit={onSubmit}>
+                    <input 
+                        placeholder="Nome do item"
+                        value={selectedItem.name} 
+                        onChange={(e) => handleOnChange('name', e.target.value)} 
+                        type="text"
+                    />
+                    <input 
+                        placeholder="Preço do item"
+                        value={selectedItem.price} 
+                        onChange={(e) => handleOnChange('price', e.target.value)} 
+                        type="text"
+                    />
+                    <button>Editar</button>
+                    <hr />
+                    <Link to='/'>Cancelar</Link>
+                </Form>
+            </Container>
         </Fragment>
     )
 }

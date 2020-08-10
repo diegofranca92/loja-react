@@ -1,23 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
+import api from "../../services/auth";
 import { Form, Container } from "./styles";
+import Logo from "../../assets/cart.png"
 
 export const SignUp = () => {
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSignUp = e => {
+    const handleSignUp = async e => {
         e.preventDefault();
-        alert("Eu vou te registrar");
-    };
-
-    const onChangeUsername = (e) => {
-        const username = e.target.value;
-        setUsername(username);
+        if (!email || !password) {
+          setError({ error: "Preencha todos os dados para se cadastrar" });
+        } 
+        else {
+          try {
+            await api.post("/register", { email, password });
+            this.props.history.push("/signin");
+          } catch (err) {
+            console.log(err);
+            setError({ error: "Ocorreu um erro ao registrar sua conta." });
+          }
+        }
       };
-    
+
       const onChangeEmail = (e) => {
         const email = e.target.value;
         setEmail(email);
@@ -31,12 +39,8 @@ export const SignUp = () => {
     return (
         <Container>
             <Form onSubmit={handleSignUp}>
-                <input
-                    type="text"
-                    placeholder="Nome de usuário"
-                    onChange={onChangeUsername}
-                    value={username}
-                />
+             <img src={Logo} alt="Logo" />
+                {error && <p>{error}</p>}
                 <input
                     type="email"
                     placeholder="Endereço de e-mail"
@@ -51,9 +55,11 @@ export const SignUp = () => {
                 />
                 <button type="submit">Cadastrar</button>
                 <hr />
-                <Link to="/">Fazer login</Link>
+                <Link to="/signin">Fazer login</Link>
             </Form>
         </Container>
     )
 
 }
+
+export default withRouter(SignUp);

@@ -1,41 +1,42 @@
 import axios from "axios";
 
-const API_URL = "https://reqres.in/api/";
+export const api = axios.create({
+  baseURL: "https://reqres.in/api/"
+});
 
 export const TOKEN_KEY = "ok";
 export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
 
-class AuthService {
-  async login(username, password) {
-    return await axios
-      .post(API_URL + "login", {
-        username,
+  const login = async (email, password) => {
+    const response = await axios
+      .post(api + "login", {
+        email,
         password
-      })
-      .then(response => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-
-        return response.data;
       });
+    if (response.data.token) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
   }
 
-  logout() {
+  const logout = () => {
     localStorage.removeItem("user");
   }
 
-  async register(username, email, password) {
-    return await axios.post(API_URL + "register", {
-      username,
+  const register = (email, password)  => {
+    return axios.post(api + "register", {
       email,
       password
     });
   }
 
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+  const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem('user'));
   }
-}
 
-export default new AuthService();
+  export default {
+    register,
+    login,
+    logout,
+    getCurrentUser,
+  };
