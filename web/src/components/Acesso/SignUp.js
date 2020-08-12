@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import api from "../../services/auth";
+import register from "../../services/auth";
 import { Form, Container } from "./styles";
 import Logo from "../../assets/cart.png"
 
@@ -12,13 +12,14 @@ export const SignUp = () => {
 
     const handleSignUp = async e => {
         e.preventDefault();
+        
         if (!email || !password) {
           setError({ error: "Preencha todos os dados para se cadastrar" });
         } 
         else {
           try {
-            await api.post("/register", { email, password });
-            this.props.history.push("/signin");
+            register(email, password);
+            this.props.history.push("/");
           } catch (err) {
             console.log(err);
             setError({ error: "Ocorreu um erro ao registrar sua conta." });
@@ -55,7 +56,7 @@ export const SignUp = () => {
                 />
                 <button type="submit">Cadastrar</button>
                 <hr />
-                <Link to="/signin">Fazer login</Link>
+                <Link to="/">Fazer login</Link>
             </Form>
         </Container>
     )

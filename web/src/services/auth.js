@@ -4,39 +4,34 @@ export const api = axios.create({
   baseURL: "https://reqres.in/api/"
 });
 
-export const TOKEN_KEY = "ok";
+export const TOKEN_KEY = "@user-Token";
 export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
 
   const login = async (email, password) => {
     const response = await axios
       .post(api + "login", {
         email,
-        password
+        password,
       });
     if (response.data.token) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem(TOKEN_KEY, response.data.token);
     }
     return response.data;
-  }
+  };
 
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem(TOKEN_KEY);
   }
 
-  const register = (email, password)  => {
-    return axios.post(api + "register", {
+  const register = async (email, password)  => {
+    return await axios.post(api + "register", {
       email,
       password
     });
-  }
-
-  const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem('user'));
   }
 
   export default {
     register,
     login,
     logout,
-    getCurrentUser,
   };

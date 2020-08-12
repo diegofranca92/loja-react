@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-// import { api } from "../../services/auth";
+import login from "../../services/auth";
 import { Form, Container } from "./styles";
 import Logo from "../../assets/cart.png"
 
@@ -16,15 +16,14 @@ export const SignIn = () => {
         if (!email || !password) {
             setError({ error: "Preencha e-mail e senha para continuar!" });
         } 
-        // else {
-        //     try {
-        //         const response = await api.post("/login", { email, password });
-        //         // login(response.data.token);
-        //         this.props.history.push("/");
-        //     } catch (err) {
-        //         setError({error: "Houve um problema com o login, verifique suas credenciais."});
-        //     }
-        // }
+        else {
+            try {
+                login(email, password);
+                this.props.history.push("/home");
+            } catch (err) {
+                setError({error: "Houve um problema com o login, verifique suas credenciais."});
+            }
+        }
     };
 
     const onChangeEmail = (e) => {
